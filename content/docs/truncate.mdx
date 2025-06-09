@@ -71,3 +71,117 @@ body {
 ```
 
 </Playground>
+
+Let's see a bit more tricky one, that is, we have a list item with the start icon and end button, we want the text between the start icon and the button will truncate when hit limit.
+
+This is the example, the icon and button are fixed width, the text will truncate when hit limit.
+
+<Playground>
+
+```html index.html active
+<div class="container">
+  <div class="list-item">
+    <div class="icon">
+      🏠
+    </div>
+    <div class="text">
+      This is a very long text that should truncate when the container width is limited while keeping the icon and button visible
+    </div>
+    <button class="action-button">
+      Delete
+    </button>
+  </div>
+  
+  <div class="list-item">
+    <div class="icon">
+      📄
+    </div>
+    <div class="text">
+      Short text that will not be truncated
+    </div>
+    <button class="action-button">
+      Edit
+    </button>
+  </div>
+  
+  <div class="list-item">
+    <div class="icon">
+      🔗
+    </div>
+    <div class="text">
+      Another example with extremely long text content that demonstrates how the truncation works in a flexbox layout with fixed width elements on both sides
+    </div>
+    <button class="action-button">
+      Share
+    </button>
+  </div>
+</div>
+```
+
+```css styles.css
+body {
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  border: 2px solid #e5e7eb;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  margin-bottom: 8px;
+}
+
+.list-item:last-child {
+  margin-bottom: 0;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.text {
+  flex: 1;
+  min-width: 0; /* Important for truncation in flexbox */ /* [!code highlight] */
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #374151;
+}
+
+.action-button {
+  flex-shrink: 0;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-button:hover {
+  background-color: #dc2626;
+}
+```
+
+</Playground>

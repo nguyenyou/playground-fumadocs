@@ -9,6 +9,7 @@
   --doc-primary-color: oklch(74.6% 0.16 232.661);
   --code-padding-x: 16px;
   --code-padding-y: 12px;
+  --code-highlight-border-left-width: 2px;
 }
 
 @theme inline {
@@ -211,8 +212,8 @@
     display: inline-block;
     transition: background-color 0.5s;
     margin: 0px calc(0px - var(--code-padding-x));
-    padding: 0px var(--code-padding-x) 0px 28px;
-    border-left: 2px solid var(--doc-primary-color);
+    padding: 0px var(--code-padding-x) 0px calc(var(--code-padding-x) - var(--code-highlight-border-left-width));
+    border-left: var(--code-highlight-border-left-width) solid var(--doc-primary-color);
   }
 
   .shiki.has-focused .line:not(.focused) {
