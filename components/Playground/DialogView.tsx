@@ -27,7 +27,7 @@ export default function DialogView({
             "fixed z-[100] top-1/2 left-1/2 w-screen h-screen -translate-x-1/2 -translate-y-1/2 rounded-lg bg-card text-foreground transition-all duration-150 data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[starting-style]:scale-90 data-[starting-style]:opacity-0",
             isFullScreen
               ? ""
-              : "max-w-[calc(100vw-20rem)] max-h-[calc(100vh-20rem)] p-6 outline-1 outline-border"
+              : "container max-h-9/10 p-6 outline-1 outline-border"
           )}
         >
           <PreviewContainer
