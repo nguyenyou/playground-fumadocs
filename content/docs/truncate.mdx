@@ -1,0 +1,73 @@
+---
+title: Truncate
+description: Everything you need to know about the truncate text
+---
+
+Text truncate is a very common pattern in web development. It is used to limit the length of a text to a certain number of characters.
+
+## Simple
+
+<Playground>
+
+```html index.html active
+<div class="truncate">
+  This is a very long text that will be truncated..
+</div>
+```
+
+```css styles.css
+body {
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.truncate {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+```
+
+</Playground>
+
+However, in many situation, we don't have a fixed width container. We always want to text to use all the available width, then, when hit limit, it truncate.
+
+This is the example:
+
+<Playground>
+
+```html index.html active
+<div class="container">
+  <div class="responsive-truncate">
+    This is a very long text that will use all the available width in the container until it reaches the limit.
+  </div>
+</div>
+```
+
+```css styles.css
+body {
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  border: 2px solid #e5e7eb;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.responsive-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: #f3f4f6;
+  padding: 8px;
+  border-radius: 4px;
+}
+```
+
+</Playground>
