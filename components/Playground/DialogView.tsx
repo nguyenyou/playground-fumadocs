@@ -17,7 +17,7 @@ export default function DialogView({
 }: Props) {
   return (
     <Dialog.Root>
-      <Dialog.Trigger className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900">
+      <Dialog.Trigger className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-secondary data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900">
         {icon}
       </Dialog.Trigger>
       <Dialog.Portal>

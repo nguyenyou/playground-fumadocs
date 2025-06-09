@@ -7,6 +7,8 @@
 
 :root {
   --doc-primary-color: oklch(74.6% 0.16 232.661);
+  --code-padding-x: 16px;
+  --code-padding-y: 12px;
 }
 
 @theme inline {
@@ -152,7 +154,6 @@
     height: 100%;
     overflow: auto;
     border: none;
-    padding: 24px 32px;
   }
 
   .shiki code {
@@ -186,8 +187,8 @@
     width: calc(100% + 64px);
     display: inline-block;
     transition: background-color 0.5s;
-    margin: 0px -32px;
-    padding: 0px 32px;
+    margin: 0px calc(0px - var(--code-padding-x));
+    padding: 0px var(--code-padding-x);
   }
 
   .shiki code .highlighted {
@@ -199,8 +200,8 @@
     width: calc(100% + 64px);
     display: inline-block;
     transition: background-color 0.5s;
-    margin: 0px -32px;
-    padding: 0px 32px 0px 28px;
+    margin: 0px calc(0px - var(--code-padding-x));
+    padding: 0px var(--code-padding-x) 0px 28px;
     border-left: 2px solid var(--doc-primary-color);
   }
 
@@ -211,7 +212,7 @@
       transparent
     );
     border-radius: 8px;
-    padding: 24px 32px;
+    padding: var(--code-padding-y) var(--code-padding-x);
   }
 
   .shiki.has-focused .line:not(.focused) {

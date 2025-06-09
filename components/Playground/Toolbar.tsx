@@ -36,7 +36,7 @@ export default function Toolbar({ previewIframeRef, previewIframe, expand: expan
         title="Desktop"
         aria-label="Desktop"
         value="desktop"
-        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900"
+        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-secondary data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900"
         onClick={() => resetContainerWidth()}
       >
         <Monitor className="size-4" />
@@ -45,7 +45,7 @@ export default function Toolbar({ previewIframeRef, previewIframe, expand: expan
         title="Tablet (768px)"
         aria-label="Tablet (768px)"
         value="tablet"
-        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900"
+        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-secondary data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900"
         onClick={() => setContainerWidth(768)}
       >
         <Tablet className="size-4" />
@@ -54,7 +54,7 @@ export default function Toolbar({ previewIframeRef, previewIframe, expand: expan
         title="Phone (375px)"
         aria-label="Phone (375px)"
         value="phone"
-        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900"
+        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-secondary data-[pressed]:bg-gray-100 data-[pressed]:text-gray-900"
         onClick={() => setContainerWidth(375)}
       >
         <Smartphone className="size-4" />
@@ -66,7 +66,7 @@ export default function Toolbar({ previewIframeRef, previewIframe, expand: expan
         title="Refresh"
         aria-label="Refresh"
         onClick={handleRefresh}
-        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+        className="flex size-6 items-center justify-center rounded-sm text-foreground select-none hover:bg-secondary focus-visible:bg-none  focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
       >
         <RotateCw className="size-4 transition-transform" />
       </button>
