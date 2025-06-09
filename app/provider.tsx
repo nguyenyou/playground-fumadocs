@@ -7,7 +7,7 @@ export function Provider({ children }: { children: ReactNode }) {
   return (
     <RootProvider
       theme={{
-        enabled: false,
+        enabled: true,
       }}
       search={{
         SearchDialog,

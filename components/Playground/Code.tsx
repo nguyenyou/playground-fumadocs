@@ -1,4 +1,10 @@
 import { highlighter } from './highlighter'
+import {
+  transformerNotationDiff,
+  transformerNotationHighlight,
+  transformerNotationFocus,
+  transformerNotationWordHighlight
+} from '@shikijs/transformers'
 import { Lang } from './types'
 
 type Props = {
@@ -11,11 +17,17 @@ export const Code = ({ code, lang }: Props) => {
   const normalizedCode = (code || '').trim()
   const html = highlighter.codeToHtml(normalizedCode, {
     lang,
-    theme: 'github-light-default',
+    theme: 'github-dark-default',
+    transformers: [
+      transformerNotationDiff(),
+      transformerNotationHighlight(),
+      transformerNotationFocus(),
+      transformerNotationWordHighlight()
+    ]
   })
   return (
     <div
-      className="h-full overflow-auto p-4"
+      className="h-full playground-code p-1 bg-[#0d1117]"
       dangerouslySetInnerHTML={{ __html: html }}
     >
     </div>

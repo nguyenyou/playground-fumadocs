@@ -87,8 +87,8 @@ export default function PreviewContainer({
   return (
     <div
       className={cn(
-        "w-full h-full flex relative flex-col gap-2 bg-gray-100/50 ",
-        isFullScreen ? "" : "pb-2 pt-2 pl-2 pr-3.5 border border-gray-200"
+        "w-full h-full flex relative flex-col gap-2 bg-card",
+        isFullScreen ? "" : "pb-2 pt-2 pl-2 pr-3.5 border border-border"
       )}
     >
       {isFullScreen ? null : (
@@ -105,12 +105,12 @@ export default function PreviewContainer({
 
       <div
         ref={containerRef}
-        className="relative w-full bg-white h-full overflow-visible"
+        className="relative w-full bg-card h-full overflow-visible"
       >
         {previewIframe}
         <div
           className={cn(
-            "pointer-events-auto absolute top-1/2 -mt-6 h-12 w-1.5 cursor-ew-resize rounded-full bg-slate-950/20 hover:bg-slate-950/40",
+            "pointer-events-auto absolute top-1/2 -mt-6 h-12 w-1.5 cursor-ew-resize rounded-full bg-slate-950/20 hover:bg-slate-950/40 dark:bg-slate-500 dark:group-data-dragging:bg-slate-300 dark:hover:bg-slate-300",
             isFullScreen ? "right-2.5" : "-right-2.5 -mt-6"
           )}
           onMouseDown={handleMouseDown}
