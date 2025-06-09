@@ -27,7 +27,7 @@ export const Code = ({ code, lang }: Props) => {
   })
   return (
     <div
-      className="h-full playground-code p-1 bg-[#0d1117]"
+      className="h-full playground-code p-1 bg-card"
       dangerouslySetInnerHTML={{ __html: html }}
     >
     </div>

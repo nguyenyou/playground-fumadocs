@@ -61,8 +61,8 @@ export const FileExplorer = ({ files }: Props) => {
   const defaultValue = activeFileEntry ? activeFileEntry[0] : fileEntries[0][0]
 
   return (
-    <Tabs.Root className="border-x border-b border-border text-sm" defaultValue={defaultValue}>
-      <Tabs.List className="relative z-0 flex gap-1 px-1">
+    <Tabs.Root className="text-sm" defaultValue={defaultValue}>
+      <Tabs.List className="relative z-0 flex gap-1 px-1 bg-card border-y border-border">
         {fileEntries.map(([filePath]) => {
           const filename = getFilenameFromPath(filePath)
           return (

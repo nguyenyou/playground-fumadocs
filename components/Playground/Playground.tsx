@@ -24,7 +24,7 @@ export const Playground = async (props: Props) => {
   const srcDoc = await builder.build({ files, head, htmlAttr })
 
   return (
-    <div>
+    <div className='overflow-hidden border border-border'>
       <PlaygroundClient srcDoc={srcDoc} />
       <FileExplorer files={files} />
     </div>

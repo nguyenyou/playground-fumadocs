@@ -88,7 +88,7 @@ export default function PreviewContainer({
     <div
       className={cn(
         "w-full h-full flex relative flex-col gap-2 bg-card",
-        isFullScreen ? "" : "pb-2 pt-2 pl-2 pr-3.5 border border-border"
+        isFullScreen ? "" : "pb-2 pt-2 pl-2 pr-3.5"
       )}
     >
       {isFullScreen ? null : (
