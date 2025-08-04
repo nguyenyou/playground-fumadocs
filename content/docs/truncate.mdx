@@ -185,3 +185,17 @@ body {
 ```
 
 </Playground>
+
+## Requirements
+
+For text-overflow: ellipsis to work correctly, certain conditions must be met — otherwise, the ellipsis won’t appear. Here’s the breakdown:
+
+✅ Requirements for Single-Line Truncation
+
+```css
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+```
