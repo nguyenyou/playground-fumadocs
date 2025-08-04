@@ -199,3 +199,126 @@ For text-overflow: ellipsis to work correctly, certain conditions must be met �
   text-overflow: ellipsis;
 }
 ```
+
+What's required:
+
+**1. overflow: hidden**
+
+Prevents overflow text from spilling out visually.
+
+**2. white-space: nowrap**
+
+Forces the text to stay on one line; no wrapping.
+
+**3. text-overflow: ellipsis**
+
+Applies the ellipsis to the clipped content.
+
+**4. The element must have a constrained width**
+
+Either via width, max-width, flex-basis, or parent container constraints.
+
+```css
+width: 200px; /* or some other limit */
+```
+
+✅ Requirements for Multi-Line Truncation
+
+```css
+.truncate-multiline {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+```
+
+
+What's required:
+
+**1. display: -webkit-box**
+
+Enables multi-line layout in a flex-like column mode.
+
+**2. -webkit-box-orient: vertical**
+
+Sets the orientation to vertical (required).
+
+**3. -webkit-line-clamp: N**
+
+Specifies the number of lines to show (e.g., 3).
+
+**4. overflow: hidden**
+
+Needed to hide clipped lines.
+
+**5. The content must actually overflow those N lines**
+
+No overflow = no ellipsis.
+
+🚫 Common Mistakes (Why Truncation Fails)
+
+- Missing width or container has no width constraint.
+- Using text-overflow: ellipsis without overflow: hidden.
+- Using text-overflow on a block with white-space: normal.
+- Expecting it to work with display: flex without care (use min-width: 0 or overflow: hidden on flex children).
+
+🔴 Common Failure Cases for text-overflow: ellipsis
+
+1. ❌ No constrained width (auto width)
+
+Problem:
+
+If the element's width is not constrained, the text will never overflow, so the ellipsis won't be triggered.
+
+```css
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+```
+
+```html
+<div class="truncate">This is a long sentence that should be truncated.</div>
+```
+
+→ Fails: Because the div grows to fit the content.
+
+✅ Fix:
+
+Apply a fixed width, max-width, or use layout constraints (e.g., flex container).
+
+```css
+.truncate {
+  width: 200px;
+}
+```
+
+4. ❌ Child element is too wide inside a container
+
+Problem
+
+Ellipsis is applied to the outer container, but a child element (e.g. span) expands the width.
+
+```html
+<div class="truncate">
+  <span style="display: inline-block; width: auto">Too wide span</span>
+</div>
+```
+
+✅ Fix:
+
+Force the child element to not grow beyond the container:
+
+```css
+span {
+  max-width: 100%;
+  display: inline-block;
+}
+```
+
+Or apply truncation directly to the child instead.
+
+5. ❌ Used in a flex container child without min-width: 0
+
