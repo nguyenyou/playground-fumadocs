@@ -140,3 +140,40 @@ import scala.scalajs.js.annotation.{JSGlobalScope, JSGlobal, JSImport, JSName, J
 object clsxRequire extends StObject
 
 ```
+
+How we provide sjs binding for the clsx package:
+
+For a package, we will have an object `mod` that contains the imports for the package.
+
+```ts
+import { clsx } from "clsx"
+
+clsx("foo", "bar", "baz")
+```
+
+will be converted to:
+
+```scala
+import typings.clsx.mod.clsx
+
+clsx("foo", "bar", "baz")
+```
+
+or import default:
+
+```ts
+import clsx from "clsx"
+
+clsx("foo", "bar", "baz")
+```
+
+will be converted to:
+
+
+
+
+```scala
+import typings.clsx.mod
+
+mod("foo", "bar", "baz")
+```
