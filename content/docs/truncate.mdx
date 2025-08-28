@@ -186,6 +186,78 @@ body {
 
 </Playground>
 
+<Playground>
+
+```html index.html active
+<div class="cell">
+  <div class="one"></div>
+  <div class="two">
+  </div>
+  <div class="three">
+    <div class="four">
+      <div class="five"></div>
+      <div class="six">
+        Lorem ipsum dolor sit amet
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+```css styles.css
+body {
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.cell {
+  width: 400px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px 12px;
+  height: 36px;
+  overflow: hidden;
+  border: 1px solid black;
+}
+.one {
+  width: 7px;
+  margin-left: 16px;
+}
+.two {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  visibility: hidden;
+}
+.three {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  justify-content: inherit;
+  align-items: inherit;
+}
+.four {
+  display: flex;
+  gap: 8px;
+}
+
+.five {
+  width: 16px;
+  height: 16px;
+}
+
+.six {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+```
+
+</Playground>
+
 ## Requirements
 
 For text-overflow: ellipsis to work correctly, certain conditions must be met — otherwise, the ellipsis won’t appear. Here’s the breakdown:
