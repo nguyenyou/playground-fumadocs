@@ -6,7 +6,7 @@ This demonstrates the new preset-based playground system.
 
 ## Vanilla JavaScript Preset
 
-<Playground preset="vanilla">
+<Playground preset="vanilla" height="400">
 
 ```js index.js active
 document.body.innerHTML = '<h1>Vanilla JavaScript</h1><p>No frameworks, just pure JS!</p>'
@@ -310,7 +310,7 @@ root.render(<BootstrapApp />)
 
 ### Custom: No Framework, No Reset, Custom Meta Tags
 
-<Playground config={{ supportTailwind: false, supportReact: false, includeResetCSS: false, includeRootDiv: false, additionalHead: ['<meta name="author" content="Custom Playground">', '<meta name="description" content="Custom playground example">', '<link rel="preconnect" href="https://fonts.googleapis.com">', '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">'] }}>
+<Playground height="600" config={{ supportTailwind: false, supportReact: false, includeResetCSS: false, includeRootDiv: false, additionalHead: ['<meta name="author" content="Custom Playground">', '<meta name="description" content="Custom playground example">', '<link rel="preconnect" href="https://fonts.googleapis.com">', '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">'] }}>
 
 ```html index.html active
 <div id="app">
