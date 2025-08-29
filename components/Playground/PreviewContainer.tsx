@@ -25,7 +25,7 @@ export default function PreviewContainer({
   previewIframeRef,
   previewIframe,
   minWidth = 200,
-  minHeight = 200,
+  minHeight = 100,
   expand = false,
   isFullScreen = false,
 }: Props) {
