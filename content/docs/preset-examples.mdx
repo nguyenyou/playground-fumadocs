@@ -6,6 +6,12 @@ This demonstrates the new preset-based playground system.
 
 ## Vanilla JavaScript Preset
 
+```jsx
+<Playground preset="vanilla">
+
+</Playground>
+```
+
 <Playground preset="vanilla" height="400">
 
 ```js index.js active
@@ -24,6 +30,13 @@ body {
 </Playground>
 
 ## Tailwind CSS Preset
+
+```jsx
+<Playground preset="tailwind">
+
+</Playground>
+```
+
 
 <Playground preset="tailwind">
 
@@ -47,6 +60,13 @@ document.querySelector('button').addEventListener('click', () => {
 
 ### Daisy
 
+
+```jsx
+<Playground preset="tailwind" htmlAttr="data-theme='cupcake'" head={['<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />', '<link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />']}>
+
+</Playground>
+```
+
 <Playground preset="tailwind" htmlAttr="data-theme='cupcake'" head={['<link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />', '<link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />']}>
 
 ```html index.html active
@@ -60,6 +80,12 @@ document.querySelector('button').addEventListener('click', () => {
 </Playground>
 
 ## React Preset (with Tailwind)
+
+```jsx
+<Playground preset="react">
+
+</Playground>
+```
 
 <Playground preset="react">
 
@@ -101,6 +127,12 @@ root.render(<App />)
 </Playground>
 
 ## React Minimal Preset (without Tailwind)
+
+```jsx
+<Playground preset="react-minimal">
+
+</Playground>
+```
 
 <Playground preset="react-minimal">
 
@@ -201,6 +233,12 @@ li {
 </Playground>
 
 ## Vanilla No Reset Preset
+
+```jsx
+<Playground preset="vanilla-no-reset">
+
+</Playground>
+```
 
 <Playground preset="vanilla-no-reset">
 
