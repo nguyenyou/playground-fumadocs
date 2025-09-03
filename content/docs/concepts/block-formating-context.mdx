@@ -3,4 +3,24 @@ title: Block formatting context
 description: Block formatting context
 ---
 
+Block Formatting Context (BFC) is one of those foundational CSS concepts that every engineer should deeply understand—it's the invisible layout mechanism that governs how block-level elements behave and interact with each other.
+
+## What is a BFC?
+
+A BFC is an isolated rendering region where block-level boxes are laid out according to specific rules. Think of it as a "container" that establishes its own layout context, separate from the rest of the document flow. Elements inside a BFC don't affect elements outside it, and vice versa.
+
+## How to create a BFC?
+
+Several CSS properties trigger BFC creation:
+
+Most common triggers:
+
+- overflow: hidden (or any value except visible)
+- display: flow-root (the modern, semantic way)
+- display: flex or display: grid (on the container)
+- position: absolute or position: fixed
+- float: left or float: right
+
+## Refs
+
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Block_formatting_context
