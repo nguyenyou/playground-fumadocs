@@ -3,23 +3,32 @@ title: Block formatting context
 description: Block formatting context
 ---
 
-Block Formatting Context (BFC) is one of those foundational CSS concepts that every engineer should deeply understand—it's the invisible layout mechanism that governs how block-level elements behave and interact with each other.
+A block formatting context (BFC) is a part of a visual CSS rendering of a web page. It's the region in which the layout of block boxes occurs and in which floats interact with other elements.
 
-## What is a BFC?
+A block formatting context is created by at least one of the following:
 
-A BFC is an isolated rendering region where block-level boxes are laid out according to specific rules. Think of it as a "container" that establishes its own layout context, separate from the rest of the document flow. Elements inside a BFC don't affect elements outside it, and vice versa.
+- The root element of the document (`<html>`).
+- Floats (elements where float isn't `none`).
+- Absolutely positioned elements (elements where position is `absolute` or `fixed`).
+- Inline-blocks (elements with display: inline-block).
+- Table cells (elements with display: table-cell, which is the default for HTML table cells).
+- Table captions (elements with display: table-caption, which is the default for HTML table captions).
+- Anonymous table cells implicitly created by the elements with display: table, table-row, table-row-group, table-header-group, table-footer-group (which is the default for HTML tables, table rows, table bodies, table headers, and table footers, respectively), or inline-table.
+- Block elements where overflow has a value other than visible and clip.
+- Elements with display: flow-root.
+- `<button>` elements and button `<input>` types defaulting to display: flow-root.
+- Elements with contain: layout, content, or paint.
+- Flex items (direct children of the element with display: flex or inline-flex) if they are neither flex nor grid nor table containers themselves.
+- Grid items (direct children of the element with display: grid or inline-grid) if they are neither flex nor grid nor table containers themselves.
+- Multicol containers (elements where column-count or column-width isn't auto, including elements with column-count: 1).
+- column-span: all, even when the column-span: all element isn't contained by a multicol container.
 
-## How to create a BFC?
+Formatting contexts affect layout because an element that establishes a new block formatting context will:
+- contain internal floats.
+- exclude external floats.
+- suppress margin collapsing.
 
-Several CSS properties trigger BFC creation:
-
-Most common triggers:
-
-- overflow: hidden (or any value except visible)
-- display: flow-root (the modern, semantic way)
-- display: flex or display: grid (on the container)
-- position: absolute or position: fixed
-- float: left or float: right
+Flex and grid containers, defined by setting an element's (display to flex, grid, inline-flex, or inline-grid), establishes a new flex or grid formatting context. These are similar to block formatting context except there are no floating children available inside a flex or grid container, but these formatting contexts do exclude external floats and suppress margin collapsing.
 
 ## Refs
 
