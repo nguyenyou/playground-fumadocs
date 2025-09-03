@@ -13,7 +13,8 @@ type Props = {
   head?: string[];
   htmlAttr?: string;
   files: string;
-  height: string
+  height: string;
+  fileExplorerHeight: string;
 };
 
 export const Playground = async (props: Props) => {
@@ -23,7 +24,8 @@ export const Playground = async (props: Props) => {
     files: filesJson,
     head,
     htmlAttr,
-    height = "400"
+    height = "400",
+    fileExplorerHeight = "200"
   } = props;
   const files = parsePlaygroundFiles(filesJson);
 
@@ -38,7 +40,7 @@ export const Playground = async (props: Props) => {
       <div style={{ height: `${height}px` }}>
         <PlaygroundClient srcDoc={srcDoc} />
       </div>
-      <FileExplorer files={files} />
+      <FileExplorer files={files} height={fileExplorerHeight} />
     </div>
   );
 };

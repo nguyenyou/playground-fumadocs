@@ -4,12 +4,14 @@ import { Lang } from './types'
 import type { FilesObject } from '@/playgroundRemarkPlugin'
 
 type Props = {
-  files: FilesObject
+  files: FilesObject,
+  height: string
 }
 type TabPanelProps = {
   value: string
   code: string
   lang: Lang
+  height: string
 }
 
 // Function to determine language based on file extension
@@ -39,15 +41,15 @@ const getFilenameFromPath = (path: string): string => {
   return path.split('/').pop() || path
 }
 
-const TabPanel = ({ value, code, lang }: TabPanelProps) => {
+const TabPanel = ({ value, code, lang, height }: TabPanelProps) => {
   return (
-    <Tabs.Panel className="h-40" value={value}>
+    <Tabs.Panel style={{ height: `${height}px` }} value={value}>
       <Code code={code} lang={lang} />
     </Tabs.Panel>
   )
 }
 
-export const FileExplorer = ({ files }: Props) => {
+export const FileExplorer = ({ files, height }: Props) => {
   // Get available file paths and create file entries, filtering out hidden files
   const fileEntries = Object.entries(files).filter(([_, fileData]) => fileData?.code && !fileData?.hidden)
 
@@ -80,7 +82,7 @@ export const FileExplorer = ({ files }: Props) => {
       {fileEntries.map(([filePath, fileData]) => {
         const filename = getFilenameFromPath(filePath)
         const lang = getLanguageFromExtension(filename)
-        return <TabPanel key={filePath} value={filePath} code={fileData.code} lang={lang} />
+        return <TabPanel height={height} key={filePath} value={filePath} code={fileData.code} lang={lang} />
       })}
     </Tabs.Root>
   )
