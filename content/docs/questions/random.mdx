@@ -7,6 +7,103 @@ description: Random questions
 
 Yes, position: fixed creates a new formatting context.
 
+## max-height
+
+I have a dix with max-height: 350px, and it has a child which is a div which is a flex box column with many children.
+
+
+<Playground height="500">
+
+```html index.html
+<div class="popover">
+    <div class="content">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+    </div>
+</div>
+
+```
+
+```css styles.css
+.popover {
+    max-height: 300px;
+    position: fixed;
+    top: 4px;
+    left: 4px;
+    border: 1px solid blue;
+    width: 400px;
+    padding: 8px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    height: 50px;
+    width: 100%;
+    border: 1px solid red;
+}
+```
+
+</Playground>
+
+How can we make the popover scrollable?
+
+<Playground height="500">
+
+```html index.html
+<div class="popover">
+    <div class="content">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">10</div>
+    </div>
+</div>
+
+```
+
+```css styles.css
+.popover {
+    max-height: 300px;
+    position: fixed;
+    top: 4px;
+    left: 4px;
+    border: 1px solid blue;
+    width: 400px;
+    padding: 8px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    height: 50px;
+    width: 100%;
+    border: 1px solid red;
+}
+```
+
+</Playground>
+
 ## Refs
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_display/Introduction_to_formatting_contexts
