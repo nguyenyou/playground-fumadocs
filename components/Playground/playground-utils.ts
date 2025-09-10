@@ -226,7 +226,8 @@ export class PlaygroundBuilder {
               "react": "https://esm.sh/react@19",
               "react-dom": "https://esm.sh/react-dom@19",
               "react-dom/client": "https://esm.sh/react-dom@19/client",
-              "react/jsx-runtime": "https://esm.sh/react@19/jsx-runtime"
+              "react/jsx-runtime": "https://esm.sh/react@19/jsx-runtime",
+              "clsx": "https://esm.sh/clsx@2"
             }
           }
         </script>

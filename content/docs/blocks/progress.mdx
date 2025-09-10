@@ -1,0 +1,78 @@
+---
+title: Progress
+description: Progress
+---
+
+Demo
+
+<Playground preset="react">
+
+```js index.js active
+import React from "react";
+import { createRoot } from "react-dom/client";
+import clsx from "clsx";
+
+const Milestone = ({ completed }: { completed: boolean }) => {
+  return (
+    <div className="inline-flex items-center justify-center w-5 h-5">
+      <div
+        className={clsx(
+          "flex items-center justify-center rounded-full w-[14px] h-[14px]",
+          completed && "border-[1.5px] border-blue-300"
+        )}
+      >
+        <div
+          className={clsx(
+            "w-[7px] h-[7px] rounded-full",
+            completed ? "bg-blue-500" : "bg-gray-400"
+          )}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
+const Item = ({ completed, title }: { completed: boolean, title: string }) => {
+  return (
+    <div>
+      <div className="flex items-center gap-2">
+        <Milestone completed={completed} />
+        <div className={clsx("truncate text-gray-400", completed && "font-semibold text-gray-800")}>
+          {title}
+        </div>
+      </div>
+      <div>
+        <div className="w-5 h-[12px] flex items-center justify-center">
+          <div className="w-[1.5px] h-full bg-gray-400"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const App = () => {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div>
+      <div className="p-4">
+        <div className="font-[13px]">
+          <div className="font-[10px] uppercase text-gray-500">Progress</div>
+          <div className="py-4">
+            <Item completed={true} title="Fill out subscription form" />
+            <Item completed={false} title="Submit for review" />
+            <Item completed={false} title="Form under review" />
+            <Item completed={false} title="Sign subscription form" />
+            <Item completed={false} title="Receive executed documents" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+```
+
+</Playground>
