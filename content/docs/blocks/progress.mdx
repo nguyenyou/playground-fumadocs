@@ -32,19 +32,30 @@ const Milestone = ({ completed }: { completed: boolean }) => {
   );
 };
 
+const Connector = () => {
+  return (
+    <div className="w-5 h-[12px] flex items-center justify-center">
+      <div className="w-[1.5px] h-full bg-gray-400"></div>
+    </div>
+  );
+};
+
 const Item = ({ completed, title }: { completed: boolean, title: string }) => {
   return (
     <div>
       <div className="flex items-center gap-2">
         <Milestone completed={completed} />
-        <div className={clsx("truncate text-gray-400", completed && "font-semibold text-gray-800")}>
+        <div
+          className={clsx(
+            "truncate text-gray-400",
+            completed && "font-semibold text-gray-800"
+          )}
+        >
           {title}
         </div>
       </div>
       <div>
-        <div className="w-5 h-[12px] flex items-center justify-center">
-          <div className="w-[1.5px] h-full bg-gray-400"></div>
-        </div>
+        <Connector />
       </div>
     </div>
   );
