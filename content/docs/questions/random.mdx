@@ -57,7 +57,7 @@ I have a dix with max-height: 350px, and it has a child which is a div which is 
 
 </Playground>
 
-How can we make the popover scrollable?
+How can we make the popover scrollable? we can only touch the content div, not the popover div.
 
 <Playground height="500">
 
@@ -79,7 +79,7 @@ How can we make the popover scrollable?
 
 ```
 
-```css styles.css
+```css styles.css active
 .popover {
     max-height: 300px;
     position: fixed;
@@ -93,9 +93,12 @@ How can we make the popover scrollable?
 .content {
     display: flex;
     flex-direction: column;
+    max-height: inherit; /* [!code highlight] */
+    overflow: auto;
 }
 
 .item {
+    flex-shrink: 0;
     height: 50px;
     width: 100%;
     border: 1px solid red;
