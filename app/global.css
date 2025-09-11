@@ -233,12 +233,12 @@
   }
 
   .shiki .highlighted-word {
-    color: var(--color-gray-100);
+    color: var(--foreground);
     background-color: color-mix(
       in oklab,
-      var(--color-gray-100) 20%,
+      var(--background) 20%,
       transparent
-    );
-    padding: 0.5px 4px;
+    ) !important;
+    padding: 0.5px 4px !important;
   }
 }

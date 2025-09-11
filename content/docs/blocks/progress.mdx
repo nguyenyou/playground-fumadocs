@@ -34,7 +34,7 @@ const Milestone = ({ completed }: { completed: boolean }) => {
 
 const Connector = () => {
   return (
-    <div className="w-5 h-[12px] flex items-center justify-center">
+    <div className="w-5 h-[12px] flex items-center justify-center last-of-type:hidden">
       <div className="w-[1.5px] h-full bg-gray-400"></div>
     </div>
   );
@@ -55,7 +55,7 @@ const Item = ({ completed, title }: { completed: boolean, title: string }) => {
         </div>
       </div>
       <div>
-        <Connector />
+        
       </div>
     </div>
   );
@@ -71,10 +71,15 @@ const App = () => {
           <div className="font-[10px] uppercase text-gray-500">Progress</div>
           <div className="py-4">
             <Item completed={true} title="Fill out subscription form" />
+            <Connector />
             <Item completed={false} title="Submit for review" />
+            <Connector />
             <Item completed={false} title="Form under review" />
+            <Connector />
             <Item completed={false} title="Sign subscription form" />
+            <Connector />
             <Item completed={false} title="Receive executed documents" />
+            <Connector />
           </div>
         </div>
       </div>
