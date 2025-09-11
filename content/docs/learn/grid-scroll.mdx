@@ -1,0 +1,478 @@
+---
+title: Grid Scroll
+description: Grid Scroll
+---
+
+Let's begin with a simple example.
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <div class="grid grid-cols-[280px_1fr_280px]">
+    <div>
+      Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+      esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+      velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+      officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+      nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+      maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+      tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+      elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+      magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+      eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis!
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+<Playground preset="tailwind">
+
+```html index.html active
+<!-- [!code word:overflow-y-auto] -->
+<div class="h-screen w-screen bg-green-100 overflow-y-auto">
+  <div class="grid grid-cols-[280px_1fr_280px]">
+    <div>
+      Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+      esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+      velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+      officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+      nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+      maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+      tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+      elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+      magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+      eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis!
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <div class="grid grid-cols-[280px_1fr_280px]">
+    <!-- [!code word:overflow-y-auto] -->
+    <div class="overflow-y-auto">
+      Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+      esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+      velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+      officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+      nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+      maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+      tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+      elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+      magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+      eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis!
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <!-- [!code word:h-full] -->
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <!-- [!code word:overflow-y-auto] -->
+    <div class="overflow-y-auto">
+      Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+      esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+      velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+      officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+      nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+      maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+      tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+      elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+      magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+      eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+      adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel explicabo
+      enim quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+      dicta at eaque tempore officiis!
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+What will be the scroll container in this case?
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <!-- [!code word:h-full] -->
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <!-- [!code word:overflow-y-auto] -->
+    <div class="overflow-y-auto">
+      <div class="overflow-y-auto">
+        Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+        nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+        maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+        tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+        elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+        quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+        dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis! Lorem ipsum dolor
+        sit, amet consectetur adipisicing elit. Dolor nobis esse obcaecati
+        deserunt harum vel explicabo enim quidem, magnam, maiores velit,
+        cupiditate possimus blanditiis aperiam dicta at eaque tempore officiis!
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+        esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+        velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+        officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+        magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+        eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis!
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+How can I make the inner div the scroll container?
+
+For a div to be the scroll container, it needs to have `overflow-y-auto` and deterministic height.
+
+For example, if we add `h-56` to the inner div, it will be the scroll container.
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <!-- [!code word:h-full] -->
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <!-- [!code word:overflow-y-auto] -->
+    <div class="overflow-y-auto">
+      <!-- [!code word:h-56] -->
+      <div class="overflow-y-auto h-56">
+        Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+        nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+        maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+        tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+        elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+        quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+        dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis! Lorem ipsum dolor
+        sit, amet consectetur adipisicing elit. Dolor nobis esse obcaecati
+        deserunt harum vel explicabo enim quidem, magnam, maiores velit,
+        cupiditate possimus blanditiis aperiam dicta at eaque tempore officiis!
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+        esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+        velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+        officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+        magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+        eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis!
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+Of course, we can use `h-full` to make the inner div the scroll container.
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <!-- [!code word:h-full] -->
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <!-- [!code word:overflow-y-auto] -->
+    <div class="overflow-y-auto">
+      <!-- [!code word:h-full] -->
+      <div class="overflow-y-auto h-full">
+        Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+        nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+        maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+        tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+        elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+        quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+        dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis! Lorem ipsum dolor
+        sit, amet consectetur adipisicing elit. Dolor nobis esse obcaecati
+        deserunt harum vel explicabo enim quidem, magnam, maiores velit,
+        cupiditate possimus blanditiis aperiam dicta at eaque tempore officiis!
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+        esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+        velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+        officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+        magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+        eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis!
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+Does the "overflow-y-auto" on the outer div matter? Let's see.
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <!-- [!code word:h-full] -->
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <div>
+      <!-- [!code word:h-full] -->
+      <div class="overflow-y-auto h-full">
+        Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+        nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+        maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+        tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+        elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+        quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+        dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis! Lorem ipsum dolor
+        sit, amet consectetur adipisicing elit. Dolor nobis esse obcaecati
+        deserunt harum vel explicabo enim quidem, magnam, maiores velit,
+        cupiditate possimus blanditiis aperiam dicta at eaque tempore officiis!
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+        esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+        velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+        officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+        magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+        eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis!
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+Opps. The content go beyond the outer div. Why is that?
+
+If we add `overflow-y-auto` to the grid container, the whole grid container will be the scroll container.
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <!-- [!code word:overflow-y-auto] -->
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <div class="overflow-y-auto">
+      <!-- [!code word:h-full] -->
+      <div class="overflow-y-auto h-full">
+        Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+        nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+        maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+        tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+        elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+        quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+        dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis! Lorem ipsum dolor
+        sit, amet consectetur adipisicing elit. Dolor nobis esse obcaecati
+        deserunt harum vel explicabo enim quidem, magnam, maiores velit,
+        cupiditate possimus blanditiis aperiam dicta at eaque tempore officiis!
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis
+        esse obcaecati deserunt harum vel explicabo enim quidem, magnam, maiores
+        velit, cupiditate possimus blanditiis aperiam dicta at eaque tempore
+        officiis! Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Dolor nobis esse obcaecati deserunt harum vel explicabo enim quidem,
+        magnam, maiores velit, cupiditate possimus blanditiis aperiam dicta at
+        eaque tempore officiis! Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Dolor nobis esse obcaecati deserunt harum vel
+        explicabo enim quidem, magnam, maiores velit, cupiditate possimus
+        blanditiis aperiam dicta at eaque tempore officiis!
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+What if I want to break the scroll container into multiple parts?
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <div class="overflow-y-auto">
+      <div class="overflow-y-auto h-full flex flex-col">
+        <div class="flex-1">Left Lorem ipsum dolor sit</div>
+        <div class="h-10 px-2 bg-amber-200">Some content</div>
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+What will happen if the content is too long?
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <div class="overflow-y-auto">
+      <div class="overflow-y-auto h-full flex flex-col">
+        <div class="flex-1">
+          Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+          nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+          maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+          tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+          elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+          quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+          dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet
+          consectetur adipisicing elit. Dolor nobis esse obcaecati deserunt
+          harum vel explicabo enim quidem, magnam, maiores velit, cupiditate
+          possimus blanditiis aperiam dicta at eaque tempore officiis! Lorem
+          ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis esse
+          obcaecati
+        </div>
+        <div class="h-10 px-2 bg-amber-200">Some content</div>
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+I want the scroll container will be the inner div of left sidebar, how?
+
+Just add `overflow-y-auto` to the inner div of left sidebar.
+
+<Playground preset="tailwind">
+
+```html index.html active
+<div class="h-screen w-screen bg-green-100">
+  <div class="grid grid-cols-[280px_1fr_280px] h-full">
+    <div class="overflow-y-auto">
+      <div class="overflow-y-auto h-full flex flex-col">
+        <!-- [!code word:overflow-y-auto] -->
+        <div class="flex-1 overflow-y-auto">
+          Left Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+          nobis esse obcaecati deserunt harum vel explicabo enim quidem, magnam,
+          maiores velit, cupiditate possimus blanditiis aperiam dicta at eaque
+          tempore officiis! Lorem ipsum dolor sit, amet consectetur adipisicing
+          elit. Dolor nobis esse obcaecati deserunt harum vel explicabo enim
+          quidem, magnam, maiores velit, cupiditate possimus blanditiis aperiam
+          dicta at eaque tempore officiis! Lorem ipsum dolor sit, amet
+          consectetur adipisicing elit. Dolor nobis esse obcaecati deserunt
+          harum vel explicabo enim quidem, magnam, maiores velit, cupiditate
+          possimus blanditiis aperiam dicta at eaque tempore officiis! Lorem
+          ipsum dolor sit, amet consectetur adipisicing elit. Dolor nobis esse
+          obcaecati
+        </div>
+        <div class="h-10 px-2 bg-amber-200">Some content</div>
+      </div>
+    </div>
+    <div>Center</div>
+    <div>Right</div>
+  </div>
+</div>
+```
+
+</Playground>
