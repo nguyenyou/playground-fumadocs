@@ -2,38 +2,158 @@
 title: Flex Item Truncate
 ---
 
+First, look at this example:
 
 <Playground preset="tailwind" height="300">
 
 ```html index.html
 <div class="w-[400px]">
-  <div>
-    <div class="p-2">
-        <div class="py-2">
-            <div>
-                <div class="flex">
-                    <div class="mr-2">123</div>
-                    <div class="flex-1">
-                        <div class="inline-flex">
-                            <div class="w-fit max-w-full">
-                                <button>
-                                    <span>
-                                        <div class="flex items-center">
-                                            <div class="flex-1 truncate">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
-                                            </div>
-                                        </div>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+  <div class="flex">
+    <div class="mr-2">123</div>
+    <div class="flex-1">
+      <div class="inline-flex max-w-full">
+        <div class="w-fit max-w-full">
+          <button class="w-full">
+            <span>
+              <div class="flex items-center">
+                <div class="flex-1 truncate">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, quos.
                 </div>
-            </div>    
+              </div>
+            </span>
+          </button>
         </div>
+      </div>
     </div>
+    <div>123</div>
   </div>
 </div>
 ```
 
 </Playground>
+
+How to make the text truncate when the container width is limited?
+
+<Playground preset="tailwind" height="300">
+
+```html index.html
+<div class="w-[400px]">
+  <div class="flex">
+    <div class="mr-2">123</div>
+    <div class="flex-1 max-w-full">
+      <div class="inline-flex max-w-full">
+        <div class="w-fit max-w-full">
+          <button class="w-full">
+            <span>
+              <div class="flex items-center">
+                <div class="flex-1 truncate">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, quos.
+                </div>
+              </div>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>123</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+Or
+
+<Playground preset="tailwind" height="300">
+
+```html index.html
+<div class="w-[400px]">
+  <div class="flex">
+    <div class="mr-2">123</div>
+    <div class="flex-1 min-w-0">
+      <div class="inline-flex max-w-full">
+        <div class="w-fit max-w-full">
+          <button class="w-full">
+            <span>
+              <div class="flex items-center">
+                <div class="flex-1 truncate">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, quos.
+                </div>
+              </div>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>123</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+Another situation
+
+<Playground preset="tailwind" height="300">
+
+```html index.html
+<div class="w-[400px]">
+  <div class="flex">
+    <div class="mr-2">123</div>
+    <div class="flex-1 min-w-0">
+      <div class="inline-flex max-w-full">
+        <div class="w-fit max-w-full">
+          <button class="inline-flex w-full">
+            <span>
+              <div class="flex items-center">
+                <div class="flex-1 truncate">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, quos.
+                </div>
+              </div>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>123</div>
+  </div>
+</div>
+```
+
+</Playground>
+
+We need to set min-width to 0.
+
+<Playground preset="tailwind" height="300">
+
+```html index.html
+<div class="w-[400px]">
+  <div class="flex">
+    <div class="mr-2">123</div>
+    <div class="flex-1 min-w-0">
+      <div class="inline-flex max-w-full">
+        <div class="w-fit max-w-full">
+          <button class="inline-flex w-full">
+            <span class="min-w-0">
+              <div class="flex items-center">
+                <div class="flex-1 truncate">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, quos.
+                </div>
+              </div>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>123</div>
+  </div>
+</div>
+```
+
+</Playground>
+
