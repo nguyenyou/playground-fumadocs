@@ -1,0 +1,39 @@
+---
+title: Flex Item Truncate
+---
+
+
+<Playground preset="tailwind" height="300">
+
+```html index.html
+<div class="w-[400px]">
+  <div>
+    <div class="p-2">
+        <div class="py-2">
+            <div>
+                <div class="flex">
+                    <div class="mr-2">123</div>
+                    <div class="flex-1">
+                        <div class="inline-flex">
+                            <div class="w-fit max-w-full">
+                                <button>
+                                    <span>
+                                        <div class="flex items-center">
+                                            <div class="flex-1 truncate">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+                                            </div>
+                                        </div>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+  </div>
+</div>
+```
+
+</Playground>
