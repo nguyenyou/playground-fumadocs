@@ -1,0 +1,3 @@
+package build.demos.autogen.h85d65cbb9205
+
+object `package` extends build.WebModule
