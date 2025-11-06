@@ -5,6 +5,7 @@ import { createHash } from "crypto";
 import type { VFile } from 'vfile'
 import { join } from 'path'
 import { writeFileSync, mkdirSync, existsSync } from 'fs'
+import { valueToEstree } from 'estree-util-value-to-estree'
 
 export type ScalaTemplateType = "basic";
 
@@ -151,6 +152,94 @@ const generateModule = (block: ScalaPreviewBlock, workspaceRoot: string): Genera
   }
 };
 
+export const getRelativeOutputPath = (hash: string): string => {
+  return `out/demos/autogen/h${hash}/fullLinkJS.dest/main.js`
+}
+
+export const getRelativeSourcePath = (hash: string): string => {
+  return `demos/autogen/h${hash}/src/Main.scala`
+}
+
+const transformToPlayground = async (node: any, block: ScalaPreviewBlock, file: VFile): Promise<void> => {
+  const { hash, sourceCode } = block
+
+  // Get paths
+  const jsPath = getRelativeOutputPath(hash)
+  const scalaPath = getRelativeSourcePath(hash)
+
+  const files: Record<string, any> = {
+    '/index.js': {
+      code: '',
+      hidden: true,
+      active: false,
+      lang: 'js',
+    },
+    '/Main.scala': {
+      code: sourceCode,
+      hidden: false,
+      active: true,
+      lang: 'scala',
+    },
+  }
+
+  // Replace the code node with a Playground JSX element
+  node.type = 'mdxJsxFlowElement'
+  node.name = 'Playground'
+  node.attributes = [
+    {
+      type: 'mdxJsxAttribute',
+      name: 'preset',
+      value: 'sjs',
+    },
+    {
+      type: 'mdxJsxAttribute',
+      name: 'files',
+      value: {
+        type: 'mdxJsxAttributeValueExpression',
+        value: JSON.stringify(files),
+        data: {
+          estree: {
+            type: 'Program',
+            body: [
+              {
+                type: 'ExpressionStatement',
+                expression: valueToEstree(files),
+              },
+            ],
+            sourceType: 'module',
+          },
+        },
+      },
+    },
+    {
+      type: 'mdxJsxAttribute',
+      name: 'head',
+      value: {
+        type: 'mdxJsxAttributeValueExpression',
+        value: JSON.stringify([`<script type="module" src="/${jsPath}"></script>`]),
+        data: {
+          estree: {
+            type: 'Program',
+            body: [
+              {
+                type: 'ExpressionStatement',
+                expression: valueToEstree([`<script type="module" src="/${jsPath}"></script>`]),
+              },
+            ],
+            sourceType: 'module',
+          },
+        },
+      },
+    },
+  ]
+  node.children = []
+  
+  // Store metadata
+  delete node.lang
+  delete node.meta
+  delete node.value
+}
+
 export function previewPlugin() {
   return (tree: Node, file: VFile) => {
     const blocks: Array<{ node: any; block: ScalaPreviewBlock }> = []
@@ -169,6 +258,14 @@ export function previewPlugin() {
         }
       }
     });
+
+    // Store blocks in file data for use by compilation script
+    if (!file.data) {
+      file.data = {}
+    }
+    file.data.scalaPreviewBlocks = blocks.map(b => b.block)
+
+    // Second pass: transform nodes to Playground components
 
     
   };
