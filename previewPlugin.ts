@@ -53,7 +53,7 @@ export const getTemplate = (templateType: ScalaTemplateType) => {
 };
 
 export const basicTemplate = (ctx: TemplateContext & { docName: string }): string => {
-  return `package demos.autogen.${ctx.docName}.h${ctx.hash}
+  return `package examples.autogen.${ctx.docName}.h${ctx.hash}
 
 import org.scalajs.dom
 import com.raquo.laminar.api.L.*
@@ -109,10 +109,10 @@ interface GeneratedModule {
 }
 
 /**
- * Generate Mill package file content for demos module
+ * Generate Mill package file content for examples module
  */
-const generateDemosMillPackage = (): string => {
-  return `package build.demos
+const generateExamplesMillPackage = (): string => {
+  return `package build.examples
 
 object \`package\` extends build.WebModule
 `;
@@ -122,7 +122,7 @@ object \`package\` extends build.WebModule
  * Generate Mill package file content for autogen module
  */
 const generateAutogenMillPackage = (): string => {
-  return `package build.demos.autogen
+  return `package build.examples.autogen
 
 object \`package\` extends build.WebModule
 `;
@@ -132,7 +132,7 @@ object \`package\` extends build.WebModule
  * Generate Mill package file content for parent module (doc file)
  */
 const generateParentMillPackage = (docName: string): string => {
-  return `package build.demos.autogen.${docName}
+  return `package build.examples.autogen.${docName}
 
 object \`package\` extends build.WebModule
 `;
@@ -142,7 +142,7 @@ object \`package\` extends build.WebModule
  * Generate Mill package file content for child module (example)
  */
 const generateChildMillPackage = (docName: string, hash: string): string => {
-  return `package build.demos.autogen.${docName}.h${hash}
+  return `package build.examples.autogen.${docName}.h${hash}
 
 object \`package\` extends build.WebModule
 `;
@@ -180,23 +180,23 @@ const getDocNameFromPath = (filePath: string): string => {
 };
 
 /**
- * Ensure demos and autogen directories exist with their package.mill files
+ * Ensure examples and autogen directories exist with their package.mill files
  */
-const ensureDemosStructure = (workspaceRoot: string): void => {
-  // Ensure demos directory exists
-  const demosPath = join(workspaceRoot, "demos");
-  const demosMillPath = join(demosPath, "package.mill");
+const ensureExamplesStructure = (workspaceRoot: string): void => {
+  // Ensure examples directory exists
+  const examplesPath = join(workspaceRoot, "examples");
+  const examplesMillPath = join(examplesPath, "package.mill");
   
-  if (!existsSync(demosPath)) {
-    mkdirSync(demosPath, { recursive: true });
+  if (!existsSync(examplesPath)) {
+    mkdirSync(examplesPath, { recursive: true });
   }
   
-  if (!existsSync(demosMillPath)) {
-    writeFileSync(demosMillPath, generateDemosMillPackage());
+  if (!existsSync(examplesMillPath)) {
+    writeFileSync(examplesMillPath, generateExamplesMillPackage());
   }
 
   // Ensure autogen directory exists
-  const autogenPath = join(workspaceRoot, "demos", "autogen");
+  const autogenPath = join(workspaceRoot, "examples", "autogen");
   const autogenMillPath = join(autogenPath, "package.mill");
   
   if (!existsSync(autogenPath)) {
@@ -215,10 +215,10 @@ const ensureParentModule = (
   docName: string,
   workspaceRoot: string
 ): void => {
-  // Ensure demos and autogen structure exists first
-  ensureDemosStructure(workspaceRoot);
+  // Ensure examples and autogen structure exists first
+  ensureExamplesStructure(workspaceRoot);
 
-  const parentModulePath = join(workspaceRoot, "demos", "autogen", docName);
+  const parentModulePath = join(workspaceRoot, "examples", "autogen", docName);
   const parentMillPath = join(parentModulePath, "package.mill");
 
   // Create parent directory if it doesn't exist
@@ -243,14 +243,14 @@ const generateModule = (
 
   // Paths for child module
   const moduleName = `h${hash}`;
-  const modulePath = join(workspaceRoot, "demos", "autogen", docName, moduleName);
+  const modulePath = join(workspaceRoot, "examples", "autogen", docName, moduleName);
   const srcPath = join(modulePath, "src");
   const millPath = join(modulePath, "package.mill");
   const scalaPath = join(srcPath, "Main.scala");
   const outputPath = join(
     workspaceRoot,
     "out",
-    "demos",
+    "examples",
     "autogen",
     docName,
     moduleName,
@@ -272,7 +272,7 @@ const generateModule = (
   return {
     hash,
     docName,
-    packageName: `demos.autogen.${docName}.${moduleName}`,
+    packageName: `examples.autogen.${docName}.${moduleName}`,
     sourcePath: scalaPath,
     millPath,
     outputPath,
@@ -280,11 +280,11 @@ const generateModule = (
 };
 
 export const getRelativeOutputPath = (docName: string, hash: string): string => {
-  return `out/demos/autogen/${docName}/h${hash}/fullLinkJS.dest/main.js`;
+  return `out/examples/autogen/${docName}/h${hash}/fullLinkJS.dest/main.js`;
 };
 
 export const getRelativeSourcePath = (docName: string, hash: string): string => {
-  return `demos/autogen/${docName}/h${hash}/src/Main.scala`;
+  return `examples/autogen/${docName}/h${hash}/src/Main.scala`;
 };
 
 const transformToPlayground = async (
