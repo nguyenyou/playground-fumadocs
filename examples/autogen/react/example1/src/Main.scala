@@ -5,6 +5,6 @@ import com.raquo.laminar.api.L.*
 @main def app = {
   val container = dom.document.querySelector("#root")
   render(container, {
-    div("Hello, 44444444444444444!")
+    div("Hello, React!")
   })
 }

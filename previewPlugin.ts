@@ -283,7 +283,7 @@ const generateModule = (
 };
 
 export const getRelativeOutputPath = (docName: string, number: number): string => {
-  return `out/examples/autogen/${docName}/example${number}/fullLinkJS.dest/main.js`;
+  return `examples-build/${docName}/example${number}.js`;
 };
 
 export const getRelativeSourcePath = (docName: string, number: number): string => {
