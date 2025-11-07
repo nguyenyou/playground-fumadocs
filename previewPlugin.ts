@@ -4,7 +4,7 @@ import type { Code } from "mdast";
 import { createHash } from "crypto";
 import type { VFile } from "vfile";
 import { join } from "path";
-import { writeFileSync, mkdirSync, existsSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from "fs";
 import { valueToEstree } from "estree-util-value-to-estree";
 
 export type ScalaTemplateType = "basic";
@@ -171,21 +171,53 @@ export const getRelativeSourcePath = (hash: string): string => {
   return `demos/autogen/h${hash}/src/Main.scala`;
 };
 
+const appendProp = (node: any, propName: string, propValue: unknown): void => {
+  node.attributes.push({
+    type: 'mdxJsxAttribute',
+    name: propName,
+    value: {
+      type: 'mdxJsxAttributeValueExpression',
+      value: JSON.stringify(propValue),
+      data: {
+        estree: {
+          type: 'Program',
+          body: [
+            {
+              type: 'ExpressionStatement',
+              expression: valueToEstree(propValue),
+            },
+          ],
+          sourceType: 'module',
+        },
+      },
+    },
+  });
+};
+
+
 const transformToPlayground = async (
   node: any,
   block: ScalaPreviewBlock,
-  file: VFile
-): Promise<void> => {
+  vfile: VFile
+) => {
   const { hash, sourceCode } = block;
 
   // Get paths
   const jsPath = getRelativeOutputPath(hash);
   const scalaPath = getRelativeSourcePath(hash);
 
+  let code = ""
+  const filePath = join(vfile.cwd, jsPath);
+  if (existsSync(filePath)) {
+    code = readFileSync(filePath, 'utf8');
+  } else {
+    console.error(`File not found: ${jsPath}`);
+  }
+
   const files: Record<string, any> = {
-    "/index.js": {
-      code: "",
-      hidden: true,
+    "/main.js": {
+      code: code,
+      hidden: false,
       active: false,
       lang: "js",
     },
@@ -200,57 +232,25 @@ const transformToPlayground = async (
   // Replace the code node with a Playground JSX element
   node.type = "mdxJsxFlowElement";
   node.name = "Playground";
-  node.attributes = [
-    {
-      type: "mdxJsxAttribute",
-      name: "preset",
-      value: "sjs",
-    },
-    {
-      type: "mdxJsxAttribute",
-      name: "files",
-      value: {
-        type: "mdxJsxAttributeValueExpression",
-        value: JSON.stringify(files),
-        data: {
-          estree: {
-            type: "Program",
-            body: [
-              {
-                type: "ExpressionStatement",
-                expression: valueToEstree(files),
-              },
-            ],
-            sourceType: "module",
-          },
-        },
-      },
-    },
-    {
-      type: "mdxJsxAttribute",
-      name: "head",
-      value: {
-        type: "mdxJsxAttributeValueExpression",
-        value: JSON.stringify([
-          `<script type="module" src="/${jsPath}"></script>`,
-        ]),
-        data: {
-          estree: {
-            type: "Program",
-            body: [
-              {
-                type: "ExpressionStatement",
-                expression: valueToEstree([
-                  `<script type="module" src="/${jsPath}"></script>`,
-                ]),
-              },
-            ],
-            sourceType: "module",
-          },
-        },
-      },
-    },
-  ];
+
+  node.attributes = node.attributes || [];
+
+  node.attributes.push({
+    type: "mdxJsxAttribute",
+    name: "files",
+    value: JSON.stringify(files),
+  });
+
+  node.attributes.push({
+    type: "mdxJsxAttribute",
+    name: "preset",
+    value: 'vanilla',
+  });
+
+  // appendProp(node, 'files', files)
+
+  // appendProp(node, 'preset', 'vanilla')
+
   node.children = [];
 
   // Store metadata
@@ -259,6 +259,28 @@ const transformToPlayground = async (
   delete node.value;
 };
 
+/*
+
+Turn
+
+```scala preview
+div("Hello, world!")
+```
+
+Into
+
+<Playground preset="vanilla" files={{
+  "/Main.scala": {
+    code: "div(\"Hello, world!\")",
+    hidden: false,
+    active: true,
+    lang: "scala",
+  },
+}}>
+
+</Playground>
+
+*/
 export function previewPlugin() {
   return (tree: Node, file: VFile) => {
     const blocks: Array<{ node: any; block: ScalaPreviewBlock }> = [];
@@ -268,7 +290,7 @@ export function previewPlugin() {
       if (isScalaPreview(node)) {
         const meta = parseMeta(node.meta);
         const block = processCodeBlock(node.value, meta);
-        console.log(block);
+        (block);
         try {
           generateModule(block, file.cwd);
           blocks.push({ node, block });
@@ -285,5 +307,12 @@ export function previewPlugin() {
     file.data.scalaPreviewBlocks = blocks.map((b) => b.block);
 
     // Second pass: transform nodes to Playground components
+    for (const { node, block } of blocks) {
+      try {
+        transformToPlayground(node, block, file)
+      } catch (error) {
+        console.error(`Failed to transform to Playground:`, error);
+      }
+    }
   };
 }

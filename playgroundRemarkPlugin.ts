@@ -35,6 +35,7 @@ interface PlaygroundNode extends Node {
     type: string;
     name: string;
     value: string;
+    files?: any;
   }>;
 }
 
@@ -74,6 +75,11 @@ function prepareFilesProp(node: PlaygroundNode, vfile: VFile): FilesObject {
   const { children } = node;
   const files: FilesObject = {};
 
+  // Safety check: ensure children exists and is an array
+  if (!children || !Array.isArray(children)) {
+    return files;
+  }
+
   for (let i = 0; i < children.length; i++) {
     const n = children[i];
     const { meta, lang, value } = n;
@@ -87,6 +93,8 @@ function prepareFilesProp(node: PlaygroundNode, vfile: VFile): FilesObject {
       const filePath = join(vfile.cwd, result.ref);
       if (existsSync(filePath)) {
         code = readFileSync(filePath, 'utf8');
+      } else {
+        console.error(`File not found: ${result.ref}`);
       }
     }
 
@@ -102,7 +110,15 @@ function prepareFilesProp(node: PlaygroundNode, vfile: VFile): FilesObject {
 }
 
 function processPlaygroundNode(playgroundNode: PlaygroundNode, file: VFile) {
+  console.log('processPlaygroundNode');
   playgroundNode.attributes = playgroundNode.attributes || [];
+
+  // Skip if files attribute already exists (e.g., from previewPlugin)
+  const hasFilesAttr = playgroundNode.attributes.some(attr => attr.name === 'files');
+  if (hasFilesAttr) {
+    console.log(`=====> Files attribute already exists for Playground node`);
+    return;
+  }
 
   const files = prepareFilesProp(playgroundNode, file);
 
