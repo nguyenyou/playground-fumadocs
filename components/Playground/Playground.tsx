@@ -27,7 +27,10 @@ export const Playground = async (props: Props) => {
     height = "400",
     fileExplorerHeight = "200"
   } = props;
+  
   const files = parsePlaygroundFiles(filesJson);
+
+  console.log(files);
 
   const builder = config
     ? createPlaygroundBuilder(config)

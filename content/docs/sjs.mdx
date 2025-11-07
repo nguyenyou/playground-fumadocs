@@ -15,7 +15,7 @@ div("Hello, world2!")
 
 # Hello SJS
  
-<Playground preset="sjs">
+<Playground preset="vanilla">
 
 ```css styles.css
 html, body {
@@ -28,13 +28,56 @@ body {
   align-items: center;
 }
 ```
-```js index.js file=out/demos/hello/fullLinkJS.dest/main.js hidden
+```js main.js ref=out/demos/hello/fullLinkJS.dest/main.js
 ```
 
-```scala App.scala file=demos/hello/src/hello/App.scala
+```scala App.scala
+package demos.hello
+
+import org.scalajs.dom
+import com.raquo.laminar.api.L.*
+
+case class App() {
+  val countVar = Var(0)
+
+  def apply() = {
+    div(
+      display.flex,
+      alignItems.center,
+      justifyContent.center,
+      gap := "10px",
+      button(
+        "-",
+        onClick --> Observer { _ =>
+          countVar.update(_ - 1)
+        }
+      ),
+      span(
+        text <-- countVar.signal.map(_.toString)
+      ),
+      button(
+        "+",
+        onClick --> Observer { _ =>
+          countVar.update(_ + 1)
+        }
+      )
+    )
+  }
+}
+
 ```
 
-```scala index.scala file=demos/hello/src/hello/index.scala
+```scala index.scala
+package demos.hello
+
+import org.scalajs.dom
+import com.raquo.laminar.api.L.*
+
+@main def hello = {
+  val container = dom.document.querySelector("#root")
+  render(container, App()())
+}
+
 ```
 
 ```html index.html hidden

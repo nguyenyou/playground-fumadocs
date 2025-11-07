@@ -2,10 +2,10 @@ import { visit } from "unist-util-visit";
 import type { Node } from "unist";
 import type { Code } from "mdast";
 import { createHash } from "crypto";
-import type { VFile } from 'vfile'
-import { join } from 'path'
-import { writeFileSync, mkdirSync, existsSync } from 'fs'
-import { valueToEstree } from 'estree-util-value-to-estree'
+import type { VFile } from "vfile";
+import { join } from "path";
+import { writeFileSync, mkdirSync, existsSync } from "fs";
+import { valueToEstree } from "estree-util-value-to-estree";
 
 export type ScalaTemplateType = "basic";
 
@@ -104,11 +104,11 @@ interface GeneratedModule {
 }
 
 interface GeneratedModule {
-  hash: string
-  packageName: string
-  sourcePath: string
-  millPath: string
-  outputPath: string
+  hash: string;
+  packageName: string;
+  sourcePath: string;
+  millPath: string;
+  outputPath: string;
 }
 
 /**
@@ -118,30 +118,41 @@ const generateMillPackage = (hash: string): string => {
   return `package build.demos.autogen.h${hash}
 
 object \`package\` extends build.WebModule
-`
-}
+`;
+};
 
-const generateModule = (block: ScalaPreviewBlock, workspaceRoot: string): GeneratedModule => {
-  const { hash, wrappedCode } = block
-  
+const generateModule = (
+  block: ScalaPreviewBlock,
+  workspaceRoot: string
+): GeneratedModule => {
+  const { hash, wrappedCode } = block;
+
   // Paths
-  const moduleName = `h${hash}`
-  const modulePath = join(workspaceRoot, 'demos', 'autogen', moduleName)
-  const srcPath = join(modulePath, 'src')
-  const millPath = join(modulePath, 'package.mill')
-  const scalaPath = join(srcPath, 'Main.scala')
-  const outputPath = join(workspaceRoot, 'out', 'demos', 'autogen', moduleName, 'fullLinkJS.dest', 'main.js')
+  const moduleName = `h${hash}`;
+  const modulePath = join(workspaceRoot, "demos", "autogen", moduleName);
+  const srcPath = join(modulePath, "src");
+  const millPath = join(modulePath, "package.mill");
+  const scalaPath = join(srcPath, "Main.scala");
+  const outputPath = join(
+    workspaceRoot,
+    "out",
+    "demos",
+    "autogen",
+    moduleName,
+    "fullLinkJS.dest",
+    "main.js"
+  );
 
   // Create directories
   if (!existsSync(srcPath)) {
-    mkdirSync(srcPath, { recursive: true })
+    mkdirSync(srcPath, { recursive: true });
   }
 
-   // Write Mill package file
-   writeFileSync(millPath, generateMillPackage(hash))
+  // Write Mill package file
+  writeFileSync(millPath, generateMillPackage(hash));
 
-    // Write Scala source file
-  writeFileSync(scalaPath, wrappedCode)
+  // Write Scala source file
+  writeFileSync(scalaPath, wrappedCode);
 
   return {
     hash,
@@ -149,100 +160,108 @@ const generateModule = (block: ScalaPreviewBlock, workspaceRoot: string): Genera
     sourcePath: scalaPath,
     millPath,
     outputPath,
-  }
+  };
 };
 
 export const getRelativeOutputPath = (hash: string): string => {
-  return `out/demos/autogen/h${hash}/fullLinkJS.dest/main.js`
-}
+  return `out/demos/autogen/h${hash}/fullLinkJS.dest/main.js`;
+};
 
 export const getRelativeSourcePath = (hash: string): string => {
-  return `demos/autogen/h${hash}/src/Main.scala`
-}
+  return `demos/autogen/h${hash}/src/Main.scala`;
+};
 
-const transformToPlayground = async (node: any, block: ScalaPreviewBlock, file: VFile): Promise<void> => {
-  const { hash, sourceCode } = block
+const transformToPlayground = async (
+  node: any,
+  block: ScalaPreviewBlock,
+  file: VFile
+): Promise<void> => {
+  const { hash, sourceCode } = block;
 
   // Get paths
-  const jsPath = getRelativeOutputPath(hash)
-  const scalaPath = getRelativeSourcePath(hash)
+  const jsPath = getRelativeOutputPath(hash);
+  const scalaPath = getRelativeSourcePath(hash);
 
   const files: Record<string, any> = {
-    '/index.js': {
-      code: '',
+    "/index.js": {
+      code: "",
       hidden: true,
       active: false,
-      lang: 'js',
+      lang: "js",
     },
-    '/Main.scala': {
+    "/Main.scala": {
       code: sourceCode,
       hidden: false,
       active: true,
-      lang: 'scala',
+      lang: "scala",
     },
-  }
+  };
 
   // Replace the code node with a Playground JSX element
-  node.type = 'mdxJsxFlowElement'
-  node.name = 'Playground'
+  node.type = "mdxJsxFlowElement";
+  node.name = "Playground";
   node.attributes = [
     {
-      type: 'mdxJsxAttribute',
-      name: 'preset',
-      value: 'sjs',
+      type: "mdxJsxAttribute",
+      name: "preset",
+      value: "sjs",
     },
     {
-      type: 'mdxJsxAttribute',
-      name: 'files',
+      type: "mdxJsxAttribute",
+      name: "files",
       value: {
-        type: 'mdxJsxAttributeValueExpression',
+        type: "mdxJsxAttributeValueExpression",
         value: JSON.stringify(files),
         data: {
           estree: {
-            type: 'Program',
+            type: "Program",
             body: [
               {
-                type: 'ExpressionStatement',
+                type: "ExpressionStatement",
                 expression: valueToEstree(files),
               },
             ],
-            sourceType: 'module',
+            sourceType: "module",
           },
         },
       },
     },
     {
-      type: 'mdxJsxAttribute',
-      name: 'head',
+      type: "mdxJsxAttribute",
+      name: "head",
       value: {
-        type: 'mdxJsxAttributeValueExpression',
-        value: JSON.stringify([`<script type="module" src="/${jsPath}"></script>`]),
+        type: "mdxJsxAttributeValueExpression",
+        value: JSON.stringify([
+          `<script type="module" src="/${jsPath}"></script>`,
+        ]),
         data: {
           estree: {
-            type: 'Program',
+            type: "Program",
             body: [
               {
-                type: 'ExpressionStatement',
-                expression: valueToEstree([`<script type="module" src="/${jsPath}"></script>`]),
+                type: "ExpressionStatement",
+                expression: valueToEstree([
+                  `<script type="module" src="/${jsPath}"></script>`,
+                ]),
               },
             ],
-            sourceType: 'module',
+            sourceType: "module",
           },
         },
       },
     },
-  ]
-  node.children = []
-  
+  ];
+  node.children = [];
+
   // Store metadata
-  delete node.lang
-  delete node.meta
-  delete node.value
-}
+  delete node.lang;
+  delete node.meta;
+  delete node.value;
+};
 
 export function previewPlugin() {
   return (tree: Node, file: VFile) => {
-    const blocks: Array<{ node: any; block: ScalaPreviewBlock }> = []
+    const blocks: Array<{ node: any; block: ScalaPreviewBlock }> = [];
 
     // First pass: collect all Scala preview blocks
     visit(tree, "code", (node: any) => {
@@ -251,22 +270,20 @@ export function previewPlugin() {
         const block = processCodeBlock(node.value, meta);
         console.log(block);
         try {
-          generateModule(block, file.cwd)
-          blocks.push({ node, block })
+          generateModule(block, file.cwd);
+          blocks.push({ node, block });
         } catch (error) {
-          console.error(`Failed to generate module for Scala preview:`, error)
+          console.error(`Failed to generate module for Scala preview:`, error);
         }
       }
     });
 
     // Store blocks in file data for use by compilation script
     if (!file.data) {
-      file.data = {}
+      file.data = {};
     }
-    file.data.scalaPreviewBlocks = blocks.map(b => b.block)
+    file.data.scalaPreviewBlocks = blocks.map((b) => b.block);
 
     // Second pass: transform nodes to Playground components
-
-    
   };
 }

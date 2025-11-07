@@ -23,7 +23,7 @@ export const PLAYGROUND_PRESETS = {
       supportTailwind: false,
       supportReact: false,
       includeResetCSS: true,
-      includeRootDiv: false,
+      includeRootDiv: true,
       additionalHead: [] as string[],
     },
   },
@@ -182,6 +182,7 @@ export class PlaygroundBuilder {
     const html = files['/index.html']?.code || ''
     const css = files['/index.css']?.code || files['/styles.css']?.code || ''
     let js = files['/index.js']?.code || ''
+    let scalaMainJS = files['/main.js']?.code || ''
 
     let headContent = [...additionalHead, ...(head || [])]
     let transformedJs = js
@@ -236,7 +237,10 @@ export class PlaygroundBuilder {
     }
 
     const body = `${html}${includeRootDiv ? '<div id="root"></div>' : ''}`
-    const scripts = transformedJs ? `<script type="module">${transformedJs}</script>` : ''
+    let scripts = transformedJs ? `<script type="module">${transformedJs}</script>` : ''
+    if(scripts === '' && scalaMainJS !== '') {
+      scripts = `<script type="module">${scalaMainJS}</script>`
+    } 
 
     return createBaseHtmlTemplate(css, headContent, body, scripts, includeResetCSS, htmlAttr)
   }
