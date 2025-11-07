@@ -30,8 +30,6 @@ export const Playground = async (props: Props) => {
   
   const files = parsePlaygroundFiles(filesJson);
 
-  console.log(files);
-
   const builder = config
     ? createPlaygroundBuilder(config)
     : createPlaygroundBuilder(preset);
