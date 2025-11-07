@@ -1,3 +1,0 @@
-package build.demos.hello
-
-object `package` extends build.WebModule

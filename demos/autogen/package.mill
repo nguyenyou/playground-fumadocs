@@ -1,3 +1,0 @@
-package build.demos.autogen
-
-object `package` extends build.WebModule

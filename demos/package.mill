@@ -1,3 +1,0 @@
-package build.demos
-
-object `package` extends build.WebModule

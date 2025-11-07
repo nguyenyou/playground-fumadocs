@@ -1,3 +1,0 @@
-package build.demos.autogen.react
-
-object `package` extends build.WebModule

@@ -109,6 +109,26 @@ interface GeneratedModule {
 }
 
 /**
+ * Generate Mill package file content for demos module
+ */
+const generateDemosMillPackage = (): string => {
+  return `package build.demos
+
+object \`package\` extends build.WebModule
+`;
+};
+
+/**
+ * Generate Mill package file content for autogen module
+ */
+const generateAutogenMillPackage = (): string => {
+  return `package build.demos.autogen
+
+object \`package\` extends build.WebModule
+`;
+};
+
+/**
  * Generate Mill package file content for parent module (doc file)
  */
 const generateParentMillPackage = (docName: string): string => {
@@ -160,12 +180,44 @@ const getDocNameFromPath = (filePath: string): string => {
 };
 
 /**
+ * Ensure demos and autogen directories exist with their package.mill files
+ */
+const ensureDemosStructure = (workspaceRoot: string): void => {
+  // Ensure demos directory exists
+  const demosPath = join(workspaceRoot, "demos");
+  const demosMillPath = join(demosPath, "package.mill");
+  
+  if (!existsSync(demosPath)) {
+    mkdirSync(demosPath, { recursive: true });
+  }
+  
+  if (!existsSync(demosMillPath)) {
+    writeFileSync(demosMillPath, generateDemosMillPackage());
+  }
+
+  // Ensure autogen directory exists
+  const autogenPath = join(workspaceRoot, "demos", "autogen");
+  const autogenMillPath = join(autogenPath, "package.mill");
+  
+  if (!existsSync(autogenPath)) {
+    mkdirSync(autogenPath, { recursive: true });
+  }
+  
+  if (!existsSync(autogenMillPath)) {
+    writeFileSync(autogenMillPath, generateAutogenMillPackage());
+  }
+};
+
+/**
  * Ensure parent module exists (create if needed)
  */
 const ensureParentModule = (
   docName: string,
   workspaceRoot: string
 ): void => {
+  // Ensure demos and autogen structure exists first
+  ensureDemosStructure(workspaceRoot);
+
   const parentModulePath = join(workspaceRoot, "demos", "autogen", docName);
   const parentMillPath = join(parentModulePath, "package.mill");
 
