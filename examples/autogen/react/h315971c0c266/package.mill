@@ -1,0 +1,3 @@
+package build.examples.autogen.react.h315971c0c266
+
+object `package` extends build.WebModule

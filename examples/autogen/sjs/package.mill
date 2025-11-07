@@ -1,0 +1,3 @@
+package build.examples.autogen.sjs
+
+object `package` extends build.WebModule

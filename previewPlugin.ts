@@ -287,7 +287,7 @@ export const getRelativeSourcePath = (docName: string, hash: string): string => 
   return `examples/autogen/${docName}/h${hash}/src/Main.scala`;
 };
 
-const transformToPlayground = async (
+const transformToPlayground = (
   node: any,
   block: ScalaPreviewBlock,
   vfile: VFile
@@ -300,10 +300,19 @@ const transformToPlayground = async (
 
   let code = ""
   const filePath = join(vfile.cwd, jsPath);
+  
   if (existsSync(filePath)) {
     code = readFileSync(filePath, 'utf8');
   } else {
-    console.error(`File not found: ${jsPath}`);
+    const errorMessage = `File not found: ${jsPath}`;
+    console.error(errorMessage);
+    // Inject JavaScript code that appends error message to document.body
+    code = `
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = 'padding: 1rem; margin: 1rem 0; background-color: #fee; border: 1px solid #fcc; border-radius: 4px; color: #c33;';
+      errorDiv.textContent = '⚠️ Error: ${errorMessage}';
+      document.body.appendChild(errorDiv);
+    `;
   }
 
   const files: Record<string, any> = {
@@ -403,7 +412,7 @@ export function previewPlugin() {
     // Second pass: transform nodes to Playground components
     for (const { node, block } of blocks) {
       try {
-        transformToPlayground(node, block, file)
+        transformToPlayground(node, block, file);
       } catch (error) {
         console.error(`Failed to transform to Playground:`, error);
       }
