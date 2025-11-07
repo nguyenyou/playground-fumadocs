@@ -1,0 +1,3 @@
+package build.examples.autogen.react.example1
+
+object `package` extends build.WebModule

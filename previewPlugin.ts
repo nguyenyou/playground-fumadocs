@@ -41,7 +41,7 @@ export const generateHash = (code: string): string => {
 };
 
 interface TemplateContext {
-  hash: string;
+  number: number;
   userCode: string;
 }
 
@@ -53,7 +53,7 @@ export const getTemplate = (templateType: ScalaTemplateType) => {
 };
 
 export const basicTemplate = (ctx: TemplateContext & { docName: string }): string => {
-  return `package examples.autogen.${ctx.docName}.h${ctx.hash}
+  return `package examples.autogen.${ctx.docName}.example${ctx.number}
 
 import org.scalajs.dom
 import com.raquo.laminar.api.L.*
@@ -68,6 +68,7 @@ import com.raquo.laminar.api.L.*
 
 interface ScalaPreviewBlock {
   hash: string;
+  number: number;
   sourceCode: string;
   wrappedCode: string;
   docName: string;
@@ -75,24 +76,26 @@ interface ScalaPreviewBlock {
 
 export const applyTemplate = (
   userCode: string,
-  hash: string,
+  number: number,
   docName: string,
   templateType: ScalaTemplateType = "basic"
 ) => {
   const template = getTemplate(templateType);
-  return template({ hash, userCode, docName });
+  return template({ number, userCode, docName });
 };
 
 const processCodeBlock = (
   code: string,
   docName: string,
+  number: number,
   meta?: ScalaPreviewMeta
 ): ScalaPreviewBlock => {
   const hash = generateHash(code);
-  const wrappedCode = applyTemplate(code, hash, docName, "basic");
+  const wrappedCode = applyTemplate(code, number, docName, "basic");
 
   return {
     hash,
+    number,
     sourceCode: code,
     wrappedCode,
     docName,
@@ -141,8 +144,8 @@ object \`package\` extends build.WebModule
 /**
  * Generate Mill package file content for child module (example)
  */
-const generateChildMillPackage = (docName: string, hash: string): string => {
-  return `package build.examples.autogen.${docName}.h${hash}
+const generateChildMillPackage = (docName: string, number: number): string => {
+  return `package build.examples.autogen.${docName}.example${number}
 
 object \`package\` extends build.WebModule
 `;
@@ -236,13 +239,13 @@ const generateModule = (
   block: ScalaPreviewBlock,
   workspaceRoot: string
 ): GeneratedModule => {
-  const { hash, wrappedCode, docName } = block;
+  const { hash, number, wrappedCode, docName } = block;
 
   // Ensure parent module exists
   ensureParentModule(docName, workspaceRoot);
 
   // Paths for child module
-  const moduleName = `h${hash}`;
+  const moduleName = `example${number}`;
   const modulePath = join(workspaceRoot, "examples", "autogen", docName, moduleName);
   const srcPath = join(modulePath, "src");
   const millPath = join(modulePath, "package.mill");
@@ -264,7 +267,7 @@ const generateModule = (
   }
 
   // Write Mill package file for child module
-  writeFileSync(millPath, generateChildMillPackage(docName, hash));
+  writeFileSync(millPath, generateChildMillPackage(docName, number));
 
   // Write Scala source file
   writeFileSync(scalaPath, wrappedCode);
@@ -279,24 +282,25 @@ const generateModule = (
   };
 };
 
-export const getRelativeOutputPath = (docName: string, hash: string): string => {
-  return `out/examples/autogen/${docName}/h${hash}/fullLinkJS.dest/main.js`;
+export const getRelativeOutputPath = (docName: string, number: number): string => {
+  return `out/examples/autogen/${docName}/example${number}/fullLinkJS.dest/main.js`;
 };
 
-export const getRelativeSourcePath = (docName: string, hash: string): string => {
-  return `examples/autogen/${docName}/h${hash}/src/Main.scala`;
+export const getRelativeSourcePath = (docName: string, number: number): string => {
+  return `examples/autogen/${docName}/example${number}/src/Main.scala`;
 };
 
 const transformToPlayground = (
   node: any,
   block: ScalaPreviewBlock,
-  vfile: VFile
+  vfile: VFile,
+  exampleNumber: number
 ) => {
-  const { hash, sourceCode, docName } = block;
+  const { hash, number, sourceCode, docName } = block;
 
   // Get paths
-  const jsPath = getRelativeOutputPath(docName, hash);
-  const scalaPath = getRelativeSourcePath(docName, hash);
+  const jsPath = getRelativeOutputPath(docName, number);
+  const scalaPath = getRelativeSourcePath(docName, number);
 
   let code = ""
   const filePath = join(vfile.cwd, jsPath);
@@ -390,10 +394,12 @@ export function previewPlugin() {
     const docName = getDocNameFromPath(file.path || file.history?.[0] || 'default');
 
     // First pass: collect all Scala preview blocks
+    let exampleCounter = 0;
     visit(tree, "code", (node: any) => {
       if (isScalaPreview(node)) {
+        exampleCounter++;
         const meta = parseMeta(node.meta);
-        const block = processCodeBlock(node.value, docName, meta);
+        const block = processCodeBlock(node.value, docName, exampleCounter, meta);
         try {
           generateModule(block, file.cwd);
           blocks.push({ node, block });
@@ -410,9 +416,10 @@ export function previewPlugin() {
     file.data.scalaPreviewBlocks = blocks.map((b) => b.block);
 
     // Second pass: transform nodes to Playground components
-    for (const { node, block } of blocks) {
+    for (let i = 0; i < blocks.length; i++) {
+      const { node, block } = blocks[i];
       try {
-        transformToPlayground(node, block, file);
+        transformToPlayground(node, block, file, i + 1);
       } catch (error) {
         console.error(`Failed to transform to Playground:`, error);
       }

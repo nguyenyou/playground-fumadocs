@@ -1,4 +1,4 @@
-package examples.autogen.sjs.h3637b7e9251b
+package examples.autogen.sjs.example1
 
 import org.scalajs.dom
 import com.raquo.laminar.api.L.*

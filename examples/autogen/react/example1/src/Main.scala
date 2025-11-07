@@ -1,4 +1,4 @@
-package examples.autogen.react.h315971c0c266
+package examples.autogen.react.example1
 
 import org.scalajs.dom
 import com.raquo.laminar.api.L.*
