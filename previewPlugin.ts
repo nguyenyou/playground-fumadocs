@@ -130,9 +130,30 @@ object \`package\` extends build.WebModule
 
 /**
  * Extract doc name from file path
- * e.g., "content/docs/sjs.mdx" -> "sjs"
+ * - If path has a subfolder under docs/ (e.g., "content/docs/react/sjs.mdx"), use subfolder name ("react")
+ * - Otherwise (e.g., "content/docs/sjs.mdx"), use filename ("sjs")
  */
 const getDocNameFromPath = (filePath: string): string => {
+  // Normalize the path and split by path separator
+  const normalizedPath = filePath.replace(/\\/g, '/');
+  const parts = normalizedPath.split('/');
+  
+  // Find the index of "docs" folder
+  const docsIndex = parts.findIndex(part => part === 'docs');
+  
+  if (docsIndex !== -1 && docsIndex < parts.length - 1) {
+    // Check if there's a subfolder after "docs"
+    // e.g., ["content", "docs", "react", "sjs.mdx"] -> docsIndex=1, next part is "react"
+    const nextPart = parts[docsIndex + 1];
+    const filename = parts[parts.length - 1];
+    
+    // If next part is not a filename (doesn't have extension), it's a subfolder
+    if (nextPart && !extname(nextPart) && nextPart !== filename) {
+      return nextPart;
+    }
+  }
+  
+  // Fallback to filename without extension
   const filename = basename(filePath);
   const nameWithoutExt = extname(filename) ? filename.replace(extname(filename), '') : filename;
   return nameWithoutExt || 'default';
